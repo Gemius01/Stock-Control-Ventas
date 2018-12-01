@@ -37,7 +37,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/usuarios/edit/{usuario}', 'UserController@edit')->name('usuarios.edit')
         ->middleware('permission:usuarios.edit');
 
-    Route::put('/usuarios/update', 'UserController@update')->name('usuarios.update')
+    Route::put('/usuarios/update/{usuario}', 'UserController@update')->name('usuarios.update')
         ->middleware('permission:usuarios.update');
 
     Route::get('/usuarios/show/{usuario}', 'UserController@show')->name('usuarios.show')
@@ -88,6 +88,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/cuadraturas/buscarventa/{venta}', 'CuadraturaController@buscarVenta')->name('cuadraturas.buscarVenta');
     
     Route::post('/cuadraturas/store', 'CuadraturaController@store')->name('cuadraturas.store');
+
+    Route::get('/cuadraturas/show/{cuadratura}', 'CuadraturaController@show')->name('cuadraturas.show');
     //Rutas Módulo Ventas
 
     Route::get('/ventas', 'VentaController@index')->name('ventas.index')
@@ -137,4 +139,28 @@ Route::middleware(['auth'])->group(function(){
 
     Route::delete('/categorias/destroy/{categoria}', 'CategoriaController@destroy')->name('categoria.destroy')
         ->middleware('permission:categorias.destroy');
+
+    //Merma
+
+    Route::get('/mermas', 'MermaController@index')->name('mermas.index')
+        ->middleware('permission:mermas.index');
+
+    Route::get('/mermas/create', 'MermaController@create')->name('mermas.create')
+        ->middleware('permission:mermas.create');
+
+    Route::post('/mermas/store', 'MermaController@store')->name('mermas.store')
+        ->middleware('permission:mermas.store');
+
+    Route::get('/mermas/edit/{categoria}', 'MermaController@edit')->name('merma.edit')
+        ->middleware('permission:mermas.edit');
+    
+    Route::get('/mermas/show/{merma}', 'MermaController@show')->name('merma.show')
+        ->middleware('permission:mermas.show');
+
+    Route::put('/mermas/update/{merma}', 'MermaController@update')->name('merma.update')
+        ->middleware('permission:mermas.update');
+
+    Route::delete('/mermas/destroy/{merma}', 'MermaController@destroy')->name('merma.destroy')
+        ->middleware('permission:mermas.destroy');
+
 });

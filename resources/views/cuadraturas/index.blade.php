@@ -15,25 +15,38 @@ Cuadraturas
 		<table class="table table-bordered">
 			<thead style="background-color:#0277BD; color:white;">
 				<tr>
-                    <th width="10%">Fecha Inicio</th>
-                    <th width="10%">Fecha Término</th>
-					<th width="30%">N° Ventas</th>
+                    <th width="20%">Fecha Inicio</th>
+                    <th width="15%">Fecha Término</th>
+					<th width="15%">N° Ventas</th>
                     <th width="10%">Total Vendido $</th>
-					<th width="10%">Total Costo $</th>
-                    <th width="10%">Ganancias $</th>
+					<th width="15%">Total Costo $</th>
+                    <th width="15%">Ganancias $</th>
                     
-                    <th colspan="3" style="text-align:center;" width="20%"> Opciones </th>
+                    <th colspan="3" style="text-align:center;" width="10%"> Opciones </th>
 				</tr>
 			</thead>
 			<tbody>
                 @foreach($cuadraturas as $cuadratura)
-                <td></td>
-                <td></td>
+                <td>{{ $cuadratura->fecha_inicio }}</td>
+                <td>{{ $cuadratura->fecha_termino }}</td>
 				<td>{{ $cuadratura->num_ventas }} </td>
                 <td>{{ $cuadratura->total_ganancia }}</td>
                 <td>{{ $cuadratura->total_coste }}</td>
                 <td>{{ $cuadratura->total_ganancia - $cuadratura->total_coste }}</td>
-                <td></td>
+                <td>
+                    <a href="{{ route('cuadraturas.show', $cuadratura->id) }}"
+                           class="btn btn-sm btn-primary">
+                           <i class="fas fa-search"></i>
+                            Detalle
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ route('usuarios.show', $cuadratura->id) }}"
+                           class="btn btn-sm btn-success">
+                           <i class="fa fa-table" aria-hidden="true"></i>
+                            Excel
+                    </a>
+                </td>
                 @endforeach
 			</tbody>
 		</table>

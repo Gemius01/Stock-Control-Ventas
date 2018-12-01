@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCuadraturasTable extends Migration
+class CreateMermasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateCuadraturasTable extends Migration
      */
     public function up()
     {
-        Schema::create('cuadraturas', function (Blueprint $table) {
+        Schema::create('mermas', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('num_ventas')->nullable();
-            $table->integer('total_coste')->nullable();
-            $table->integer('total_ganancia')->nullable();
-            $table->string('fecha_inicio')->nullable();
-            $table->string('fecha_termino')->nullable();
+            $table->integer('producto_id')->unsigned()->index();
+            $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
+            $table->integet('cantidad');
+            $table->string('motivo')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateCuadraturasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cuadraturas');
+        Schema::dropIfExists('mermas');
     }
 }

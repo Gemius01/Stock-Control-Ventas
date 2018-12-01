@@ -61,6 +61,8 @@ class CuadraturaController extends Controller
            "num_ventas" => count($ventas),
            "total_ganancia" => $total_ganancia,
            "total_coste" => $total_coste,
+           "fecha_inicio" => $request->input('fecha_inicio'),
+           "fecha_termino" => $request->input('fecha_termino'),
         ]);
         $cuadratura->ventas()->sync($arrayToSync);
 
@@ -75,7 +77,8 @@ class CuadraturaController extends Controller
      */
     public function show($id)
     {
-        //
+        $cuadratura = Cuadratura::find($id);
+        return view('cuadraturas.show', compact(['cuadratura']));
     }
 
     /**

@@ -82,6 +82,8 @@ Nueva Cuadratura
 <!-- Fin Modal -->
 <div style="display:none;">
 <input id="ventasBuscadas"/>
+<input id="fechaInicioInput"/>
+<input id="fechaTerminoInput"/>
 </div>
 <script>
 $(document).ready(function(){
@@ -96,7 +98,8 @@ function buscarFechas()
 {
     var fechaInicio = document.getElementById('fechaInicio').value
     var fechaTermino = document.getElementById('fechaTermino').value
-
+    $('#fechaInicioInput').val(fechaInicio)
+    $('#fechaTerminoInput').val(fechaTermino)
     $.ajax({
       method: 'GET', // Type of response and matches what we said in the route
       headers: {
@@ -184,6 +187,9 @@ function toggleModal(idVenta)
 
 function guardarCuadratura ()
 {
+    var fechaInicio = document.getElementById('fechaInicioInput').value
+    var fechaTermino = document.getElementById('fechaTerminoInput').value
+
     var ventas = document.getElementById('ventasBuscadas').value
     var obj = JSON.parse(ventas)
     $.ajax({
@@ -192,7 +198,7 @@ function guardarCuadratura ()
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       url: '/cuadraturas/store/', // This is the url we gave in the route
-      data: {ventas: obj}, // a JSON object to send back
+      data: {ventas: obj, fecha_inicio: fechaInicio, fecha_termino: fechaTermino}, // a JSON object to send back
       success: function(response){ // What to do if we succeed
            console.log(response)
       },

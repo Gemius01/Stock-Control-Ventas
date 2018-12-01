@@ -318,10 +318,9 @@
                         <li {{ (Request::is('/informes') ? 'class="active"' : '') }}>
                             <a href="{{ url ('informes') }}"><i class="fas fa-chart-bar"></i> Informes</a>
                         </li>
-                        
-                        
-                        
-                       
+                        <li {{ (Request::is('/informes') ? 'class="active"' : '') }}>
+                            <a href="{{ url ('mermas') }}"><i class="fa fa-trash" aria-hidden="true"></i> Merma</a>
+                        </li>
                     </ul>
                 </div>
                 

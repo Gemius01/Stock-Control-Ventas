@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Categoria;
+use App\Http\Requests\CategoriaStoreRequest;
+use App\Http\Requests\CategoriaUpdateRequest;
 
 class CategoriaController extends Controller
 {
@@ -34,7 +36,7 @@ class CategoriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoriaStoreRequest $request)
     {
         $categoria = Categoria::create([
             "nombre" => $request->input('nombre')
@@ -60,9 +62,9 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Categoria $categoria)
     {
-        //
+        return view('categorias.edit', compact('categoria'));
     }
 
     /**
@@ -72,9 +74,11 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoriaUpdateRequest $request, Categoria $categoria)
     {
-        //
+        $categoria->update($request->all());
+        return redirect()->route('categorias.index')
+            ->with('info', 'Categoria Agregado Correctamente');
     }
 
     /**

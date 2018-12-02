@@ -321,6 +321,7 @@
                         <li {{ (Request::is('/informes') ? 'class="active"' : '') }}>
                             <a href="{{ url ('mermas') }}"><i class="fa fa-trash" aria-hidden="true"></i> Merma</a>
                         </li>
+                        
                     </ul>
                 </div>
                 

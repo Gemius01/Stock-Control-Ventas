@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Merma;
 use App\Producto;
 
@@ -26,7 +27,9 @@ class MermaController extends Controller
      */
     public function create()
     {
-        $productos = Producto::pluck('id','nombre');
+        $productos = Producto::select(
+            DB::raw("CONCAT('[',codigo,'] ',nombre) AS nombre"),'id')
+            ->pluck('nombre','id');
         return view('mermas.create', compact(['productos']));
     }
 
@@ -38,7 +41,11 @@ class MermaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $merma = Merma::create($request->except('_token'));
+        return redirect()->route('mermas.index')
+            ->with('info', 'Merma registrada con éxito');
+        
     }
 
     /**
@@ -49,7 +56,8 @@ class MermaController extends Controller
      */
     public function show($id)
     {
-        //
+        $merma  = Merma::find($id);
+        return view('mermas.show', compact(['merma']));
     }
 
     /**

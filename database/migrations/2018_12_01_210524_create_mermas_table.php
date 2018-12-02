@@ -17,7 +17,7 @@ class CreateMermasTable extends Migration
             $table->increments('id');
             $table->integer('producto_id')->unsigned()->index();
             $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
-            $table->integet('cantidad');
+            $table->integer('cantidad');
             $table->string('motivo')->nullable();
             $table->timestamps();
         });

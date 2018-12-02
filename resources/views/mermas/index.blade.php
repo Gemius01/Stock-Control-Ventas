@@ -23,12 +23,13 @@ Mermas
 			<tbody>
                 @foreach($mermas as $merma)
 				<tr>
-					<td>{{ $merma->name }}</td>
-					<td>{{ $merma->email }}</td>
-                    <td>{{ $merma->roles()->first()['name'] }}</td>
+					<td>{{ $merma->created_at }}</td>
+					<td>{{ $merma->producto->nombre }}</td>
+                    <td>{{ $merma->cantidad }}</td>
+                    <td>{{ $merma->motivo }}</td>
                     
                     <td style="text-align:center;">
-                        <a href="{{ route('mermas.show', $merma->id) }}"
+                        <a href="{{ route('merma.show', $merma->id) }}"
                            class="btn btn-sm btn-primary">
                            <i class="fas fa-search"></i>
                             Detalle

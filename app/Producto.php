@@ -26,4 +26,9 @@ class Producto extends Model
     {
         return $this->belongsTo(Categoria::class);
     }
+
+    public function merma()
+    {
+        return $this->hasMany(Merma::class);
+    }
 }

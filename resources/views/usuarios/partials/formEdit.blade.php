@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="form-group col-md-6">
 	{{ Form::label('name', 'Nombre') }}
 	{{ Form::text('name', null, ['class' => 'form-control', 'id' => 'name']) }}
 	@if($errors->has('name'))
@@ -7,7 +7,7 @@
 	@endforeach
 	@endif
 </div>
-<div class="form-group">
+<div class="form-group col-md-6">
 	{{ Form::label('email', 'E-Mail') }}
 	{{ Form::text('email', null, ['class' => 'form-control', 'id' => 'email']) }}
 	@if($errors->has('email'))
@@ -17,8 +17,10 @@
 	@endif
 </div>
 
-<h3>Rol</h3>
-<div class="form-group">
+
+
+<div class="form-group col-md-6">
+	<label for="role">Rol</label>
 	<ul class="list-unstyled">
 		@foreach($roles as $role)
 		<li>

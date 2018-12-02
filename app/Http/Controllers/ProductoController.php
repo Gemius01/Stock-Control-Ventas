@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Producto;
 use App\Categoria;
+use App\Http\Requests\ProductoStoreRequest;
+use App\Http\Requests\ProductoUpdateRequest;
 
 class ProductoController extends Controller
 {
@@ -26,7 +28,9 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        $categorias = Categoria::get();
+
+        $categorias = Categoria::pluck('nombre','id');
+
         return view('productos.create', compact([ 'categorias' ]));
     }
 
@@ -36,8 +40,9 @@ class ProductoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductoStoreRequest $request)
     {
+
         $producto = Producto::create($request->all());
         return redirect()->route('productos.index')
             ->with('info', 'Producto Agregado Correctamente');
@@ -62,7 +67,9 @@ class ProductoController extends Controller
      */
     public function edit(Producto $producto)
     {
-        return view('productos.edit', compact('producto'));
+        $categorias = Categoria::pluck('nombre','id');
+        
+        return view('productos.edit', compact('producto', 'categorias'));
     
     }
 
@@ -73,7 +80,7 @@ class ProductoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Producto $producto)
+    public function update(ProductoUpdateRequest $request, Producto $producto)
     {
         
         $producto->update($request->all());

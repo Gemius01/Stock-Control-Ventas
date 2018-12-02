@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\User;
 use Caffeinated\Shinobi\Models\Role;
 use Illuminate\Support\Facades\Hash;
+
+use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
+
 class UserController extends Controller
 {
     /**
@@ -36,7 +40,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
         
         $user = User::create([
@@ -84,9 +88,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, User $usuario)
     {
-        //
+    
+        $usuario->name = $request->input('name');
+        $usuario->email = $request->input('email');
+        $usuario->password = $usuario->password;
+        $usuario->save();
+        $usuario->roles()->sync($request->input('roles'));
+        
+        return redirect()->route('usuarios.index', $usuario->id)
+            ->with('info', 'Usuario actualizado con exito');
     }
 
     /**

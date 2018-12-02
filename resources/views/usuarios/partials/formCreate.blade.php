@@ -1,16 +1,31 @@
 
-<div class="form-group col-md-6" >
-    <label for="name">Nombre</label>
-    <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese el Nombre">
+<div class="form-group col-md-6">
+	{{ Form::label('name', 'Nombre') }}
+	{{ Form::text('name', null, ['class' => 'form-control', 'id' => 'name']) }}
+	@if($errors->has('name'))
+	@foreach($errors->get('name',":message") as $error)
+	<p class="alert alert-danger alert-dismissible" >{{$error}}</p>
+	@endforeach
+	@endif
 </div>
 
 <div class="form-group col-md-6">
-    <label for="email">Correo Electrónico</label>
-    <input type="text" class="form-control" id="email" name="email" placeholder="Ingrese E-mail">
+	{{ Form::label('email', 'E-Mail') }}
+	{{ Form::text('email', null, ['class' => 'form-control', 'id' => 'email']) }}
+	@if($errors->has('email'))
+	@foreach($errors->get('email',":message") as $error)
+	<p class="alert alert-danger alert-dismissible" >{{$error}}</p>
+	@endforeach
+	@endif
 </div>
 <div class="form-group col-md-6">
-    <label for="password">Contraseña</label>
-    <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese Contraseña">
+	{{ Form::label('password', 'Contraseña') }}
+	{{ Form::password('password', ['class' => 'form-control', 'id' => 'password']) }}
+	@if($errors->has('password'))
+	@foreach($errors->get('password',":message") as $error)
+	<p class="alert alert-danger alert-dismissible" >{{$error}}</p>
+	@endforeach
+	@endif
 </div>
 
 

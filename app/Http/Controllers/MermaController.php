@@ -43,6 +43,10 @@ class MermaController extends Controller
     {
         
         $merma = Merma::create($request->except('_token'));
+        $producto = Producto::find($request->input('producto_id'));
+        $producto->stock = $producto->stock - $request->input('cantidad');
+        $producto->save();
+
         return redirect()->route('mermas.index')
             ->with('info', 'Merma registrada con éxito');
         

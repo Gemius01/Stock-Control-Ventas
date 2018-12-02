@@ -108,6 +108,7 @@ function buscarFechas()
       url: '/cuadraturas/buscar/'+fechaInicio+'/'+fechaTermino+'', // This is the url we gave in the route
       //data: {productos: productos, total_venta: parseInt(totalProductos) }, // a JSON object to send back
       success: function(response){ // What to do if we succeed
+      
           if(response.length !== 0)
           {
             

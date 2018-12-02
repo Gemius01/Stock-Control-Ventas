@@ -162,5 +162,9 @@ Route::middleware(['auth'])->group(function(){
 
     Route::delete('/mermas/destroy/{merma}', 'MermaController@destroy')->name('merma.destroy')
         ->middleware('permission:mermas.destroy');
+    
+        //Insumos Críticos
+    Route::get('/reporte/insumos-criticos/', 'InsumosCriticosController@index')->name('insumos.criticos')
+        ->middleware('permission:insumos.criticos');   
 
 });

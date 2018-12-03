@@ -20,6 +20,7 @@ class CreateProductosTable extends Migration
             $table->integer('precio_costo');
             $table->integer('precio_venta');
             $table->integer('stock')->default(0);
+            $table->boolean('activo')->default(true);
             $table->integer('stock_critico');
             $table->integer('categoria_id')->unsigned()->index();
             $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');

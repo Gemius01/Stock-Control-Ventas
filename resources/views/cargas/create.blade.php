@@ -1,6 +1,6 @@
 @extends ('layouts.dashboard')
 @section('page_heading')
-Registrar Carga
+REGISTRAR CARGA
 @stop
 
 @section('section')

@@ -1,6 +1,6 @@
 @extends ('layouts.dashboard')
 @section('page_heading')
-Cargas
+CARGAS
     <a href="{{ route('cargas.create')}}"
        class="btn btn-sm btn-primary pull-right">
         <i class="fas fa-plus"></i>
@@ -20,6 +20,9 @@ Cargas
 				</tr>
 			</thead>
 			<tbody>
+                 @if(count($cargas) == 0)
+                <tr><td colspan="3" style="text-align:center;"><strong>NO SE HAN REALIZADO CARGAS</strong></td></tr>
+                @endif
                 @foreach($cargas as $carga)
 				<tr>
                     <td>{{ $carga->total_productos }}</td>

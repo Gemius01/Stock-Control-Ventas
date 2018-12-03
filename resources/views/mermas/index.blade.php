@@ -1,6 +1,6 @@
 @extends ('layouts.dashboard')
 @section('page_heading')
-Mermas
+MERMAS
     <a href="{{ route('mermas.create') }}"
        class="btn btn-sm btn-primary pull-right">
         <i class="fas fa-plus"></i>

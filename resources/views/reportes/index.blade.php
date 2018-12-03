@@ -1,6 +1,6 @@
 @extends ('layouts.dashboard')
 @section('page_heading')
-Reportes
+INFORMES
    
 @stop
 

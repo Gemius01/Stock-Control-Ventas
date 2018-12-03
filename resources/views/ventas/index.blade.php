@@ -1,6 +1,6 @@
 @extends ('layouts.dashboard')
 @section('page_heading')
-Ventas
+VENTAS
     <a href="{{ route('ventas.create')}}"
        class="btn btn-sm btn-primary pull-right">
         <i class="fas fa-plus"></i>

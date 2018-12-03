@@ -1,6 +1,6 @@
 @extends ('layouts.dashboard')
 @section('page_heading')
-Usuarios
+USUARIOS
     <a href="{{ route('usuarios.create') }}"
        class="btn btn-sm btn-primary pull-right">
         <i class="fas fa-plus"></i>
@@ -20,6 +20,9 @@ Usuarios
 				</tr>
 			</thead>
 			<tbody>
+                @if(count($usuarios) == 0)
+                <tr><td colspan="7" style="text-align:center;"><strong>NO HAY USUARIOS</strong></td></tr>
+                @endif
                 @foreach($usuarios as $usuario)
 				<tr>
 					<td>{{ $usuario->name }}</td>

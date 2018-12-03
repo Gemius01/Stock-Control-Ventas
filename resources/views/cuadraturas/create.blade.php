@@ -126,6 +126,15 @@ function buscarFechas()
                 html += "</tr>"
                 $('#tablaVentas > tbody:last-child').append(html);
             }
+          }else
+          {
+            $("#tablaVentas > tbody").empty();
+            var html = ""
+                html += "<tr>"
+                html +=     '<td colspan="3" style="text-align:center;"><strong>NO SE HAN ENCONTRADO VENTAS EN ESTAS FECHAS</strong></td>'
+               
+                html += "</tr>"
+                $('#tablaVentas > tbody:last-child').append(html);
           }
           
          

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Venta;
+use App\Producto;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $ventas = Venta::get()->count();
+        $productosCriticos = Producto::where('stock_critico','<=', 'stock')->count();
+        return view('index',compact(['ventas', 'productosCriticos' ]));
     }
 }

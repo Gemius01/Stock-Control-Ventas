@@ -1,13 +1,7 @@
 @extends ('layouts.dashboard')
 @section('page_heading')
-PRODUCTOS
-    @can('productos.create')
-    <a href="{{ route('productos.create')}}"
-       class="btn btn-sm btn-primary pull-right">
-        <i class="fas fa-plus"></i>
-            Nuevo
-    </a>
-    @endcan
+Productos Dados de Baja
+    
 @stop
 
 @section('section')
@@ -40,15 +34,6 @@ PRODUCTOS
                     @endrole
                     <td>{{ $producto->precio_venta }}</td>
                     <td>{{ $producto->stock }}</td>
-                    @can('productos.edit')
-                    <td>
-                        <a href="{{ route('producto.edit', $producto->id) }}"
-                           class="btn btn-sm btn-success">
-                           <i class="fas fa-edit"></i>
-                            Editar
-                        </a>
-                    </td>
-                    @endcan
                     <td style="text-align:center;">
                         <a href="#"
                            class="btn btn-sm btn-primary">
@@ -56,24 +41,13 @@ PRODUCTOS
                             Detalle
                         </a>
                     </td>
-                    @can('productos.destroy')
-                    <td>
-                        {!! Form::open(['route' => ['producto.destroy', $producto->id], 
-                            'method' => 'DELETE']) !!}
-                            <button class="btn btn-sm btn-danger">
-                            <i class="fas fa-trash"></i>
-                                Eliminar
-                            </button>
-                        {!! Form::close() !!}
-                    </td>
-                    @endcan
                     @can('productos.baja')
-                    <td>
-                        {!! Form::open(['route' => ['productos.baja', $producto->id], 
+                    <td style="text-align:center;">
+                        {!! Form::open(['route' => ['productos.quitar.baja', $producto->id], 
                             'method' => 'PUT']) !!}
-                            <button class="btn btn-sm btn-danger">
-                            <i class="fa fa-sign-out" aria-hidden="true"></i>
-                                Dar de Baja
+                            <button class="btn btn-sm btn-warning">
+                            <i class="fa fa-repeat" aria-hidden="true"></i>
+                                Devolver
                             </button>
                         {!! Form::close() !!}
                     </td>

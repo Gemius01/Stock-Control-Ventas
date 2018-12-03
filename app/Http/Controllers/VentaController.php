@@ -26,8 +26,15 @@ class VentaController extends Controller
      */
     public function create()
     {
-        $productos = Producto::get();
-        return view('ventas.create', compact(['productos']));
+        $productos = Producto::where('stock', '>', 0)->where('activo','=',true)->get();
+        if(count($productos) == 0)
+        {
+            return redirect()->route('ventas.index')
+            ->with('info-danger', 'NO HAY PRODUCTOS PARA VENDER');
+        }else{
+            return view('ventas.create', compact(['productos']));
+        }
+            
     }
 
     /**
@@ -38,7 +45,7 @@ class VentaController extends Controller
      */
     public function store(Request $request)
     {
-        //return $request->input('total_venta');
+        
         $productos = $request->input('productos');
         $venta = Venta::create([
             "valor_neto" => $request->input('total_venta')
@@ -59,7 +66,7 @@ class VentaController extends Controller
         }
         
         $venta->productos()->sync($arrayToSync);
-        //return $request;
+        return $request;
     }
 
     /**
@@ -70,7 +77,7 @@ class VentaController extends Controller
      */
     public function show($id)
     {
-        $venta = Venta::find($id)->first();
+        $venta = Venta::find($id);
         return view('ventas.show', compact(['venta']));
     }
 

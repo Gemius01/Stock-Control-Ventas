@@ -71,6 +71,15 @@ Route::middleware(['auth'])->group(function(){
     
     Route::get('/productos/todos', 'ProductoController@traerProductos')->name('productos.todos')
         ->middleware('permission:productos.todos');
+    
+    Route::put('/productos/baja/{producto}', 'ProductoController@baja')->name('productos.baja')
+        ->middleware('permission:productos.baja');
+
+    Route::get('/productos/lista/baja', 'ProductoController@listaBajas')->name('productos.baja.lista')
+        ->middleware('permission:productos.baja.lista');
+
+    Route::put('/productos/quitar/baja/{producto}', 'ProductoController@quitarBaja')->name('productos.quitar.baja')
+        ->middleware('permission:productos.quitar.baja');
 
     //Rutas Módulo Informes
 

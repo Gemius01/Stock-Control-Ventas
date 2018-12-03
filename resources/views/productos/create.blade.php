@@ -1,6 +1,6 @@
 @extends ('layouts.dashboard')
 @section('page_heading')
-Nuevo Producto
+NUEVO PRODUCTO
 @stop
 
 @section('section')

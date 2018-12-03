@@ -1,6 +1,6 @@
 @extends ('layouts.dashboard')
 @section('page_heading')
-Productos
+CATEGORÍAS
     @can('categorias.create')
     <a href="{{ route('categorias.create')}}"
        class="btn btn-sm btn-primary pull-right">

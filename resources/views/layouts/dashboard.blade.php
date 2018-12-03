@@ -1,6 +1,7 @@
 @extends('layouts.plane')
 
 @section('body')
+
  <div id="wrapper">
 
         <!-- Navigation -->
@@ -305,6 +306,11 @@
                                     <a href="{{ url ('categorias') }}"><i class="fas fa-list-ul"></i> Nueva Categoría</a>
                                 </li>
                                 @endcan
+                                @can('productos.baja.lista')
+                                <li>
+                                    <a href="{{ url ('productos/lista/baja') }}"><i class="fa fa-sign-out" aria-hidden="true"></i> Dados de Baja</a>
+                                </li>
+                                @endcan
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -336,7 +342,22 @@
                 </div>
                 <!-- /.col-lg-12 -->
            </div>
-			<div class="row">  
+           @if(session('info'))
+            <div class="container">
+                <div class="alert alert-success">
+                    {{ session('info') }}
+                </div>
+            </div>
+            @endif
+            @if(session('info-danger'))
+            <div class="container">
+                <div class="alert alert-danger">
+                    {!! session('info-danger') !!}
+                </div>
+            </div>
+            @endif
+			<div class="row">
+            
 				@yield('section')
 
             </div>

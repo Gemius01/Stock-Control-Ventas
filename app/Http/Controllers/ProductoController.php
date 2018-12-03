@@ -17,7 +17,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = Producto::get();
+        $productos = Producto::where('activo', '=', true)->get();
         return view('productos.index', compact(['productos']));
     }
 
@@ -105,5 +105,29 @@ class ProductoController extends Controller
         $productos = Producto::all();
 
         return $productos;
+    }
+
+    public function baja($producto)
+    {
+        $producto = Producto::find($producto);
+        $producto->activo = 0;
+        $producto->save();
+
+        return back()->with('info', 'Se ha dado de baja el producto');
+    }
+
+    public function quitarBaja($producto)
+    {
+        $producto = Producto::find($producto);
+        $producto->activo = 1;
+        $producto->save();
+
+        return back()->with('info', 'Se ha devuelto el producto');
+    }
+
+    public function listaBajas()
+    {
+        $productos = Producto::where('activo', '=', false)->get();
+        return view('productos.bajas', compact(['productos']));
     }
 }

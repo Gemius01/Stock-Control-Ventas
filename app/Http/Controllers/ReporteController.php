@@ -16,7 +16,7 @@ class ReporteController extends Controller
     public function index()
     {
         $ventas = Venta::get()->count();
-        $productosCriticos = Producto::where('stock_critico','>', 'stock')->count();
+        $productosCriticos = Producto::where('stock_critico','<=', 'stock')->count();
         return view('reportes.index',compact(['ventas', 'productosCriticos' ]));
     }
 

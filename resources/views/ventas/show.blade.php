@@ -1,6 +1,6 @@
 @extends ('layouts.dashboard')
 @section('page_heading')
-Detalle Carga {{ $venta->created_at }}
+Detalle Venta {{ $venta->created_at }}
 @stop
 
 @section('section')

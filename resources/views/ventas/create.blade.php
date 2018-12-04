@@ -245,7 +245,7 @@ function guardarVenta () {
       data: {productos: productos, total_venta: parseInt(totalProductos) }, // a JSON object to send back
       success: function(response){ // What to do if we succeed
           //console.log(response);
-          //window.location.href = '/ventas';
+          window.location.href = '/ventas';
           console.log(response);
          
           

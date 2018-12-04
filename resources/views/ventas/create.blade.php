@@ -1,6 +1,6 @@
 @extends ('layouts.dashboard')
 @section('page_heading')
-REGISTRAR CARGA
+REGISTRAR VENTA
 @stop
 
 @section('section')
@@ -8,6 +8,8 @@ REGISTRAR CARGA
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="col-md-12">
 <form id="formVenta">
+<div class="container">
+<div style="overflow-x:auto;">
 <table class="table" id="tablaProductos">
   <thead>
     <tr>
@@ -76,6 +78,8 @@ REGISTRAR CARGA
     
   </tbody>
 </table>
+</div>
+</div>
 </form>
 </div>
 <div class="modal" tabindex="-1" role="dialog" id="modalTotalVenta">
@@ -156,12 +160,17 @@ function prueba()
 }
 function agregarProducto () {
 var allProductsStatic = JSON.parse(document.getElementById('objProductosStatic').value)
-console.log(countSelect);
+    console.log('COUNT SELECT '+ countSelect+ '')
+    console.log('COUNT PRODUCTS STATIC'+ allProductsStatic.length+ '')
+    console.log('COUNT PRODUCTS '+ allProducts.length+ '')
+    console.log(allProducts)
     if(allProductsStatic.length > countSelect)
     {
-        if(allProducts.length !== 0)
+        
+        console.log('entre')
+        if(allProductsStatic.length !== 0)
         {
-        countSelect = countSelect +1    
+        countSelect = countSelect + 1    
         count = count + 1;
         var arrayProductos
         var html = "";
@@ -199,6 +208,7 @@ console.log(countSelect);
         $('#selectProductos'+count+'').selectpicker('refresh');
 
         objetos.push({id: count, idSelect: 'selectProductos'+count+'', idCantidad: 'total_productos'+count+'', idValor:'valor_producto'+count+''}) 
+        
         }else {
             
         }
@@ -206,7 +216,12 @@ console.log(countSelect);
         alert('NO HAY MAS PRODUCTOS PARA VENDER')
     }
 }
-
+function objetosPrueba() {
+    console.log(objetos)
+}
+function objetosAllPrueba() {
+    console.log(allProducts)
+}
 function guardarVenta () {
   
 
@@ -466,14 +481,16 @@ function changeValor(e)
 
 
 function eliminarRow(e) {
-  
-    
+    console.log(objetos)
+    //var productosStaticos = JSON.parse(document.getElementById('objProductosStatic').value)
     //console.log(e.target.id);
     var index = objetos.findIndex(x => x.id === parseInt(e.target.id))
+    
+    
     // var productosStaticos = JSON.parse(document.getElementById('objProductosStatic').value)
     // var productoFind = productosStaticos.find(x => x.id === parseInt(e.target.id))
     //countSelect = countSelect - 1;
-    //allProducts.push(productoFind)
+    
     
     if(parseInt(e.target.id) !== 1)
     {
@@ -485,13 +502,15 @@ function eliminarRow(e) {
         {
             var productosStaticos = JSON.parse(document.getElementById('objProductosStatic').value)
             var productoFind = productosStaticos.find(x => x.id === parseInt(e.target.id))
-            //console.log(selectid)
+            var objEncontrado = productosStaticos.find(x => x.id === parseInt(selectid))
+            allProducts.push(objEncontrado)
+            
                                 $("#selectProductos option").eq(1)
                                     .before($("<option></option>")
                                     .val(1)
-                                    .text("["+productoFind.codigo+"] "+productoFind.nombre+""));
+                                    .text("["+objEncontrado.codigo+"] "+objEncontrado.nombre+""));
                                 $("#selectProductos").selectpicker('refresh');
-            for (let i = 2; i <= countSelect; i++) 
+            for (let i = 2; i <= countSelect+1; i++) 
                     {
                         if("selectProductos"+parseInt(e.target.id)+"" !== "selectProductos"+i+"")
                             {
@@ -499,7 +518,7 @@ function eliminarRow(e) {
                                 $("#selectProductos"+i+" option").eq(1)
                                     .before($("<option></option>")
                                     .val(1)
-                                    .text("["+productoFind.codigo+"] "+productoFind.nombre+""));
+                                    .text("["+objEncontrado.codigo+"] "+objEncontrado.nombre+""));
                                 $("#selectProductos"+i+"").selectpicker('refresh');
                             }
                     }
@@ -516,8 +535,11 @@ function eliminarRow(e) {
         if(selectid !== "")
         {
             var productosStaticos = JSON.parse(document.getElementById('objProductosStatic').value)
-            var productoFind = productosStaticos.find(x => x.id === parseInt(e.target.id))
+            console.log('selectid'+ selectid+ '')
+            var productoFind = productosStaticos.find(x => x.id === parseInt(selectid))
             
+            allProducts.push(productoFind)
+            console.log(productoFind)
             for (let i = 2; i <= countSelect+1; i++) 
                     {
                         if("selectProductos"+parseInt(e.target.id)+"" !== "selectProductos"+i+"")
@@ -544,7 +566,7 @@ function eliminarRow(e) {
         
      if (index > -1) {
          objetos.splice(index, 1);
-    }
+     }
 }
 $( "#tablaProductos tbody" ).on( "click", '.remove', eliminarRow );
 

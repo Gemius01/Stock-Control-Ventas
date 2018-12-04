@@ -176,4 +176,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/reporte/insumos-criticos/', 'InsumosCriticosController@index')->name('insumos.criticos')
         ->middleware('permission:insumos.criticos');   
 
+    Route::get('/producto/stock/{producto}', 'ProductoController@stockProducto')->name('producto.stock')
+        ->middleware('permission:producto.stock');  
+
 });

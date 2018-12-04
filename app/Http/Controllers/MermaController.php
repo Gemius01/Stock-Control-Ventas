@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Merma;
 use App\Producto;
+use App\Http\Requests\MermaStoreRequest;
 
 class MermaController extends Controller
 {
@@ -39,7 +40,7 @@ class MermaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MermaStoreRequest $request)
     {
         
         $merma = Merma::create($request->except('_token'));

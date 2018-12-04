@@ -130,4 +130,12 @@ class ProductoController extends Controller
         $productos = Producto::where('activo', '=', false)->get();
         return view('productos.bajas', compact(['productos']));
     }
+
+    public function stockProducto($producto) 
+    {
+        $producto = Producto::find($producto);
+        
+
+        return $producto->stock;
+    }
 }

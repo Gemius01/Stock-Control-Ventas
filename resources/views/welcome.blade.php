@@ -8,7 +8,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
-
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <!-- Styles -->
         <style>
             html, body {
@@ -61,6 +61,12 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+            @media only screen and (max-width: 600px) {
+			.title {
+				font-size:40px;
+
+			}
+		}
         </style>
     </head>
     <body>
@@ -68,21 +74,22 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/home') }}">PANEL</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
+                        <a href="{{ route('login') }}">INGRESAR</a>
+                        <!--<a href="{{ route('register') }}">Register</a>-->
                     @endauth
                 </div>
             @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    STOCK-CONTROL
-                </div>
-
-                <div class="links">
+            <div class="container">
+                <div class="content">
                     
+                        <h1 class="title"><strong>STOCK-CONTROL</strong></h1>
+                    
+
+                    <div class="links">
+                        
+                    </div>
                 </div>
             </div>
         </div>

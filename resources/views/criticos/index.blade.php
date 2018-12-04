@@ -1,6 +1,6 @@
 @extends ('layouts.dashboard')
 @section('page_heading')
-Productos Críticos
+PRODUCTOS CRÍTICOS
 
 @stop
 
@@ -16,6 +16,9 @@ Productos Críticos
 				</tr>
 			</thead>
 			<tbody>
+				@if(count($productos) == 0)
+                <tr><td colspan="7" style="text-align:center;"><strong>NO HAY PRODUCTOS CON STOCK CRÍTICO</strong></td></tr>
+                @endif
                 @foreach($productos as $producto)
 				<tr>
 					<td>{{ $producto->codigo }}</td>

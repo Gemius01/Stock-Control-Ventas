@@ -21,6 +21,9 @@ MERMAS
 				</tr>
 			</thead>
 			<tbody>
+                @if(count($mermas) == 0)
+                <tr><td colspan="5" style="text-align:center;"><strong>NO SE HAN REGISTRADO MERMAS</strong></td></tr>
+                @endif
                 @foreach($mermas as $merma)
 				<tr>
 					<td>{{ $merma->created_at }}</td>

@@ -25,11 +25,11 @@
             <input type="number" class="form-control" onkeydown="numberInput(event)" id="total_productos"  name="total_productos" min="1">
         </div>
       </td>
-      <td><button type="button" class="btn btn-danger remove" id="1"><i class="fas fa-trash-alt"></i></button></td>
+      <td><button type="button" id="1" class="btn btn-danger remove" id="1"><i class="fas fa-trash-alt" id="1"></i></button></td>
     </tr>
     <tr>
         <td colspan="3">
-            <button type="button" class="btn btn-primary btn-lg btn-block" onClick="agregarProducto()">Agregar otro producto</button>
+            <button type="button"  class="btn btn-primary btn-lg btn-block" onClick="agregarProducto()">Agregar otro producto</button>
         </td>
     </tr>
   </tbody>
@@ -62,7 +62,7 @@ function agregarProducto () {
         var html = "";
             html += '<tr>'
             html += '<td scope="row">'
-            html +='<select class="form-control selectpicker" id="selectProductos'+count+'" data-live-search="true" '
+            html +='<select class="form-control selectpicker" previous="-1" onChange="changeSelect(event)" name="'+count+'" id="selectProductos'+count+'" data-live-search="true" ' 
             html +='data-validation="required"'
             html +='        data-validation-if-checked="limited"'
             html +='       data-validation-if-checked-value="yes" >'
@@ -79,7 +79,7 @@ function agregarProducto () {
             html +=    '<input type="number" class="form-control" onkeydown="numberInput(event)" id="total_productos'+count+'" min="0" name="total_productos">'
             html +='</div>'
             html += '</td>'
-            html +='<td><button type="button" class="btn btn-danger remove" id="'+count+'"><i class="fas fa-trash-alt"></i></button></td>'
+            html +='<td><button type="button" class="btn btn-danger remove" id="'+count+'"><i class="fas fa-trash-alt" id="'+count+'"></i></button></td>'
             html +='</tr>'
         $('#tablaProductos tr').eq(-1).before(html);
         //$('#mytable tr').eq(-1).before("<tr><td>new row</td></tr>")
@@ -230,6 +230,7 @@ function eliminarRow(e) {
   }
 }
 $( "#tablaProductos tbody" ).on( "click", '.remove', eliminarRow );
+
 function numberInput (e)
 {
     // Allow: backspace, delete, tab, escape, enter and .
@@ -246,5 +247,121 @@ function numberInput (e)
             e.preventDefault();
            
         }
+}
+var previous
+$("#selectProductos").on('focus', function () {
+        // Store the current value on focus and on change
+        previous = this.value;
+    }).change(function() {
+        // Do something with the previous value after the change
+        
+        
+        //var allProductsStatic = JSON.parse(document.getElementById('objProductosStatic').value)
+        var objBefore = allProductsStatic.find(x => x.id === parseInt(previous))
+            console.log("previous" + previous + "")
+            if(previous !== undefined)
+            {
+                for (let i = 2; i <= countSelect; i++) {
+                    if("selectProductos" === "selectProductos")
+                    {
+                        $("#selectProductos"+i+" option").eq(previous)
+                            .before($("<option></option>")
+                            .val(previous)
+                            .text("["+objBefore.codigo+"] "+objBefore.nombre+""));
+                        $("#selectProductos"+i+"").selectpicker('refresh');
+                    }
+                }
+         }
+         previous = this.value;
+        // Make sure the previous value is updated
+        //previous = this.value;
+        
+        $('#total_productos').val('1');
+        console.log("default value = " +this.defaultValue+ "")
+        var selectid = document.getElementById("selectProductos").value
+        console.log('s '+selectid +'')
+        if(parseInt(selectid) != 0)
+        {
+            
+            var valueSelectedBefore = previous
+            
+            var valor_producto = allProductsStatic.find(x => x.id === parseInt(selectid)).precio_venta
+            
+            var obj = allProductsStatic.find(x => x.id === parseInt(selectid))
+            $('#stockMax').empty();
+            $('#precioNormal').empty();
+            $("#total_productos").attr("max", obj.stock);
+            $('#stockMax').append('max : '+ obj.stock +'')
+            $('#precioNormal').append('normal : '+ obj.precio_venta +'')
+            for (let i = 2; i <= countSelect; i++) {
+                if("selectProductos" === "selectProductos")
+                {
+                    $("#selectProductos"+i+" option[value='"+selectid+"']").remove();
+                    $("#selectProductos"+i+"").selectpicker('refresh');
+                }
+            }
+ 
+        }
+
+    });
+
+    //////change del select 2 en adelante
+
+function changeSelect(e)
+{
+    
+    var previousVal = $(e.target).attr('previous')
+    var idInput = $(e.target).attr('id')
+    var allProductsStatic = JSON.parse(document.getElementById('objProductosStatic').value)
+
+    if(parseInt(previousVal) !== -1)
+    {
+        var objBefore = allProductsStatic.find(x => x.id === parseInt(previousVal))
+        $("#selectProductos option").eq(previousVal)
+                    .before($("<option></option>")
+                    .val(previousVal)
+                    .text("["+objBefore.codigo+"] "+objBefore.nombre+""));
+        $("#selectProductos").selectpicker('refresh');
+        for (let i = 2; i <= countSelect; i++) {
+            if( idInput !== "selectProductos"+i+"")
+            {
+                $("#selectProductos"+i+" option").eq(previousVal)
+                    .before($("<option></option>")
+                    .val(previousVal)
+                    .text("["+objBefore.codigo+"] "+objBefore.nombre+""));
+                $("#selectProductos"+i+"").selectpicker('refresh');
+            }
+        }
+    }
+
+    var contador = e.target.getAttribute('name');
+    var selectid = e.target.getAttribute('id');
+    //$('#total_productos'+contador+'').val('1');
+    
+    var selectid = document.getElementById("selectProductos"+contador+"").value
+    $(e.target).attr('previous', selectid)
+    if(selectid != 0)
+    {
+        var valor_producto = allProductsStatic.find(x => x.id === parseInt(selectid)).precio_venta
+        var obj = allProductsStatic.find(x => x.id === parseInt(selectid))
+        // $("#total_productos"+contador+'').attr("max", obj.stock);
+        // $('#precioNormal'+contador+'').empty();
+        // $('#stockMax'+contador+'').empty();
+        // $('#precioNormal'+contador+'').append('normal : $'+ formatNumber(obj.precio_venta)+'');
+        // $('#stockMax'+contador+'').append('max : '+ formatNumber(obj.stock)+'');
+        
+        for (let i = 2; i <= countSelect; i++) {
+            $("#selectProductos option[value='"+selectid+"']").remove();
+            $("#selectProductos").selectpicker('refresh');
+            if("selectProductos"+contador+"" !== "selectProductos"+i+"")
+            {
+                $("#selectProductos"+i+" option[value='"+selectid+"']").remove();
+                $("#selectProductos"+i+"").selectpicker('refresh');
+            }
+            
+            
+        }
+    }
+
 }
 </script>

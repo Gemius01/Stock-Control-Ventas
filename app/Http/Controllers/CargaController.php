@@ -26,7 +26,7 @@ class CargaController extends Controller
      */
     public function create()
     {
-        $productos = Producto::get();
+        $productos = Producto::where('activo','=', true)->get();
         return view('cargas.create', compact([ 'productos' ]));
     }
 

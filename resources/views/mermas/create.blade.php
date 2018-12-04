@@ -1,6 +1,6 @@
 @extends ('layouts.dashboard')
 @section('page_heading')
-Nuevo Producto
+REGISTRAR MERMA
 @stop
 
 @section('section')

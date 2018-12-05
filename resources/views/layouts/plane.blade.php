@@ -23,7 +23,7 @@
 
 		}
 
-		@media only screen and (max-width: 600px) {
+		@media only screen and (max-width: 800px) {
 			.dropdown-menu-style {
 				margin-left:80% !important;
 

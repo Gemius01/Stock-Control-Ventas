@@ -8,8 +8,8 @@ REGISTRAR VENTA
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="col-md-12">
 <form id="formVenta">
-<div class="container">
-<div style="overflow-x:auto;">
+
+<div  class="col-md-12" style="overflow-x:auto">
 <table class="table" id="tablaProductos">
   <thead>
     <tr>
@@ -79,7 +79,7 @@ REGISTRAR VENTA
   </tbody>
 </table>
 </div>
-</div>
+
 </form>
 </div>
 <div class="modal" tabindex="-1" role="dialog" id="modalTotalVenta">
@@ -122,30 +122,45 @@ $(document).ready(function(){
 
 $('#formVenta').submit(function(e){
     e.preventDefault();
-    $('#tablaVentaConfirmar > tbody').empty();
     var allProductsStatic = JSON.parse(document.getElementById('objProductosStatic').value)
-    var html = "";
+    var arrayValidate = []
     for (let i = 0; i < objetos.length; i++) {
-    var selectProducto = document.getElementById(objetos[i].idSelect).value
-    var numberCantidad = document.getElementById(objetos[i].idCantidad).value
-    var numberValor = document.getElementById(objetos[i].idValor).value
-    var totalProductos = totalProductos + parseInt(numberValor);
-    
-    var objFind = allProductsStatic.find(x => x.id === parseInt(selectProducto))
-    
-    
-            html += '<tr>'
-            html +='<td>'+objFind.codigo+'</td>'
-            html +='<td>'+objFind.nombre+'</td>'
-            html +='<td>'+numberCantidad+'</td>'
-            html +='<td>'+numberValor+'</td>'
-            html +='</tr>' 
-    
-  }
-    
-    $('#tablaVentaConfirmar > tbody:last-child').append(html);
-    
-    $('#modalTotalVenta').modal('show');
+        var selectedID = document.getElementById(objetos[i].idSelect).value
+        arrayValidate.push(allProductsStatic.find(x => x.id === parseInt(selectedID)))
+        console.log('array Validate')
+        console.log(arrayValidate)
+    }
+    var verifyArray = hasDuplicates(arrayValidate)
+    if(verifyArray)
+    {
+        alert('HAY PRODUCTOS REPETIDOS POR FAVOR SOLO DEJE UN REGISTRO POR PRODUCTO')
+    }else {
+            $('#tablaVentaConfirmar > tbody').empty();
+            
+            var html = "";
+            for (let i = 0; i < objetos.length; i++) {
+            var selectProducto = document.getElementById(objetos[i].idSelect).value
+            var numberCantidad = document.getElementById(objetos[i].idCantidad).value
+            //var numberValor = document.getElementById(objetos[i].idValor).value
+            //var totalProductos = totalProductos + parseInt(numberValor);
+            
+            var objFind = allProductsStatic.find(x => x.id === parseInt(selectProducto))
+            
+            
+                    html += '<tr>'
+                    html +='<td>'+objFind.codigo+'</td>'
+                    html +='<td>'+objFind.nombre+'</td>'
+                    html +='<td>'+numberCantidad+'</td>'
+                    //html +='<td>'+numberValor+'</td>'
+                    html +='</tr>' 
+            
+          }
+            
+            $('#tablaVentaConfirmar > tbody:last-child').append(html);
+            
+            $('#modalTotalVenta').modal('show');
+    }
+      
 });
 
 var objetos = [{id: 1, idSelect: 'selectProductos', idCantidad: 'total_productos', idValor:'valor_producto'}];
@@ -182,6 +197,7 @@ var allProductsStatic = JSON.parse(document.getElementById('objProductosStatic')
             html += 'data-live-search="true" data-validation="required" data-validation-if-checked="limited"'
             html += 'data-validation-if-checked-value="yes" required>'
             html +='<option disabled selected value> Seleccione un Producto</option>'
+            html += '<option value="1">[1] Producto Prueba</option>'
             for (let i = 0; i < allProducts.length; i++) {
             html += '<option value="'+allProducts[i].id+'">['+allProducts[i].codigo+'] '+allProducts[i].nombre+'</option>'
                 
